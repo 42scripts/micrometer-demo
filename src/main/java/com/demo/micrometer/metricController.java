@@ -1,9 +1,11 @@
 package com.demo.micrometer;
 
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import io.micrometer.core.annotation.Counted;
+import io.micrometer.core.instrument.Gauge;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +25,10 @@ public class metricController {
     //private final BeerService beerService;
     //private final G2Service gService;
     //@Autowired
-    private final AtomicInteger badJobCount;
+    //private final AtomicInteger badJobCount;
 
     @GetMapping("/submit")
-    public void startAll() {
+    public void startAll(String str, Integer integer) {
         log.info("Started");
         //beerService.orderBeer(new Order(2,"light"));
         //beerService.inc();
@@ -34,11 +36,12 @@ public class metricController {
         //gService.getList2().add("STR2");
         //gService.getMap().put("key", 11234);
         //gService.getI().getAndIncrement();
-        badJobCount.getAndIncrement();
+        //badJobCount.getAndIncrement();
+        throw new RuntimeException("surprice!");
     }
 
     @GetMapping("/clear")
-    public void clearAll() {
+    public List<String> clearAll() {
         log.info("Clear");
         //beerService.orderBeer(new Order(2,"light"));
         //beerService.inc();
@@ -46,7 +49,8 @@ public class metricController {
         //gService.getList2().clear();
         //gService.getMap().put("key", 11234);
         //gService.getI().getAndSet(0);
-        badJobCount.getAndSet(0);
+        //badJobCount.getAndSet(0);
+        return null;
     }
 
 }
