@@ -22,6 +22,12 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
+			<exclusions>
+				<exclusion>  <!-- declare the exclusion here -->
+					<groupId>io.micrometer</groupId>
+					<artifactId>micrometer-core</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -32,6 +38,13 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.12</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
@@ -39,10 +52,12 @@
 		<dependency>
 			<groupId>io.micrometer</groupId>
 			<artifactId>micrometer-core</artifactId>
+			<version>1.5.4</version>
 		</dependency>
         <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-registry-prometheus</artifactId>
+						<version>1.5.4</version>
         </dependency>
         <dependency>
             <groupId>io.projectreactor</groupId>

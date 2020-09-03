@@ -4,40 +4,35 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import io.micrometer.core.annotation.Timed;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 @Service
-public class BeerService {
-
+public class GService {
     private final MeterRegistry meterRegistry;
     private Counter projectCounter;
+    private Gauge gg;
     //private Counter aleOrderCounter;
 
-    private List<String> projectsCountList = new ArrayList<>();
+    private List<String> projectsSumList = new ArrayList<>();
 
-    public BeerService(MeterRegistry meterRegistry) {
+    public GService(MeterRegistry meterRegistry) {
         this.meterRegistry = meterRegistry;
         initOrderCounters();
         /*Counter.builder("projectCounter")
                 .description("Execute project counter")
                 .register(meterRegistry);*/
-        Gauge.builder("projectsInQueue", projectsCountList, Collection::size)
-                .description("projectsCount")
-                .register(meterRegistry);
+        gg = Gauge.builder("projectsInQueue", projectsSumList, Collection::size).register(meterRegistry);
     }
 
-    public void inc(){
+/*    public void inc(){
         projectCounter.increment();
-    }
+    }*/
 
     private void initOrderCounters() {
-        projectCounter = this.meterRegistry.counter("startProjectCount"); // 1 - create a counter
+        projectCounter = this.meterRegistry.counter("scheduleCounter"); // 1 - create a counter
 /*        aleOrderCounter = Counter.builder("beer.orders")    // 2- create a counter using the fluent API
                 .tag("type", "ale")
                 .description("The number of orders ever placed for Ale beers")
@@ -72,4 +67,8 @@ class Order {
         this.amount = amount;
         this.type = type;
     }*/
+
+    public List<String> getProjectsSumList() {
+        return projectsSumList;
+    }
 }
